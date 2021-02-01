@@ -51,7 +51,8 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/delete/{index}", name: 'todos.delete')]
 	public function deleteElement($index){
-		
+        $list=USession::get(self::LIST_SESSION_KEY);
+        $list[$index]=null;
 	}
 
 
@@ -83,7 +84,10 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/saveList/", name: 'todos.save')]
 	public function saveList(){
-		
+        $list=USession::get(self::LIST_SESSION_KEY);
+        $id = self::LIST_SESSION_KEY;
+        //CacheManager::$cache->store(self::CACHE_KEY . $id, $list);
+        $this->showMessage("Sauvegarde", "La liste a été sauvegardée sous l'id $id", "info", "check square");
 	}
 
     private function menu(){
