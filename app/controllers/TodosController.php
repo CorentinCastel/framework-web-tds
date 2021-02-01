@@ -52,13 +52,28 @@ class TodosController extends ControllerBase{
 	#[Get(path: "todos/delete/{index}", name: 'todos.delete')]
 	public function deleteElement($index){
         $list=USession::get(self::LIST_SESSION_KEY);
-        $list[$index]=null;
+        $temp = [];
+        $i = 0;
+        $j =0;
+        foreach ($list as $elm){
+            if($j != $index){
+                $temp[$i]=$elm;
+                $i++;
+            }
+            $j++;
+        }
+        USession::set(self::LIST_SESSION_KEY, $temp);
+        $list = USession::get(self::LIST_SESSION_KEY);
+        $this->displayList($list);
 	}
 
 
 	#[Post(path: "todos/edit/{index}", name: 'todos.edit')]
 	public function editElement($index){
-		
+        $list=USession::get(self::LIST_SESSION_KEY);
+        $list[$index]=URequest::post('element');
+        USession::set(self::LIST_SESSION_KEY, $list);
+        $this->displayList($list);
 	}
 
 
@@ -76,8 +91,16 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/newlist/{force}", name: 'todos.new')]
 	public function newlist($force = false){
-        USession::set(self::LIST_SESSION_KEY,[]);
-        $this->displayList([]);
+        $list = USession::get(self::LIST_SESSION_KEY);
+        if($list == null || $list == [] || $force){
+            $this->showMessage("Nouvelle Liste", "Liste correctement créée.", "icon", "check square green");
+            USession::set(self::LIST_SESSION_KEY,[]);
+            $this->displayList([]);
+        }
+        else{
+            $this->showMessage("Nouvelle Liste", "Une liste a déjà été créée. Souhaitez-vous la vider ?", "info", "info circle", [['url'=>Router::path('home', [],false), 'caption'=>"Annuler","style"=>'ui inverted button'], ['url'=>Router::path('todos.new'), 'caption'=>"Confirmer la création","style"=>'ui inverted green button']]);
+        }
+
 
 	}
 
@@ -96,6 +119,9 @@ class TodosController extends ControllerBase{
 
 	
 	private function displayList($list){
+        /*if(count($list)>0){
+            $this->jquery->show('._saveList', '', '', false);
+        }*/
 		$this->jquery->change('#multiple', '$(".form").toggle');
 		$this->jquery->renderView('TodosController/displayList.html',['list'=>$list]);
 

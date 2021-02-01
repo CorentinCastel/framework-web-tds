@@ -2,7 +2,29 @@
 <div class="ui inverted segment">
     <div class="ui inverted relaxed divides list">
         {% for item in list %}
-            <div class="item">{{item}}</div>
+            <div class="item">
+                <form style="display: none" class="ui inverted left floated form" action="{{ path('todos.edit', {index:loop.index0 })}}}">
+                    <div class="ui inverted mini input">
+                        <input type="text" name="element" value="{{ item }}">
+                    </div>
+                </form>
+                <div class="ui inverted checkbox" style>
+                    <input type="checkbox" name="example" id="ck{{ loop.index0 }}">
+                    <label class="_element" for="ck{{ loop.index0 }}" data-index="{{ loop.index0 }}">{{ item }}</label>
+                </div>
+                <a href="todos/delete/{{ loop.index0 }}">
+                    <div class="ui cirlcular mini icon inverted red button right floated">
+                        <i class="ui times icon">
+
+                        </i>
+                    </div>
+                </a>
+                <div class="ui circular mini icon inverted button right floated _toEdit">
+                    <i class="ui edit icon">
+
+                    </i>
+                </div>
+            </div>
         {% endfor %}
             <div class="item">
                 <div class="item">
