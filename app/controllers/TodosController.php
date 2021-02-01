@@ -2,6 +2,7 @@
 namespace controllers;
 use Ubiquity\attributes\items\router\Get;
 use Ubiquity\attributes\items\router\Post;
+use Ubiquity\cache\CacheManager;
 use Ubiquity\controllers\Router;
 use Ubiquity\utils\http\URequest;
 use Ubiquity\utils\http\USession;
@@ -79,13 +80,24 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/loadList/{uniqid}", name: 'todos.loadList')]
 	public function loadList($uniqid){
-		
+        if (CacheManager::$cache->exists(self::CACHE_KEY . $uniqid)) {
+            $list = CacheManager::$cache->fetch(self::CACHE_KEY . $uniqid);
+            $this->displayList($list);
+        }
+
 	}
 
 
 	#[Post(path: "todos/loadList/", name: 'todos.loadListPost')]
 	public function loadListFromForm(){
-		
+		$uniqid = URequest::post('id');
+        if (CacheManager::$cache->exists(self::CACHE_KEY . $uniqid)) {
+            $list = CacheManager::$cache->fetch(self::CACHE_KEY . $uniqid);
+            $this->displayList($list);
+        }
+        else{
+            $this->showMessage("Chargement", "La liste d'id $uniqid n'existe pas", "info", "frown outline icon");
+        }
 	}
 
 
@@ -98,7 +110,11 @@ class TodosController extends ControllerBase{
             $this->displayList([]);
         }
         else{
-            $this->showMessage("Nouvelle Liste", "Une liste a déjà été créée. Souhaitez-vous la vider ?", "info", "info circle", [['url'=>Router::path('home', [],false), 'caption'=>"Annuler","style"=>'ui inverted button'], ['url'=>Router::path('todos.new'), 'caption'=>"Confirmer la création","style"=>'ui inverted green button']]);
+            $this->showMessage("Nouvelle Liste", "Une liste a déjà été créée. Souhaitez-vous la vider ?", "info", "info circle",
+                [
+                    ['url'=>Router::path('home', [],false), 'caption'=>"Annuler","style"=>'ui inverted button'],
+                    ['url'=>Router::path("todos.new", [1]), 'caption'=>"Confirmer la création","style"=>'ui inverted green button']
+                ]);
         }
 
 
@@ -108,9 +124,9 @@ class TodosController extends ControllerBase{
 	#[Get(path: "todos/saveList/", name: 'todos.save')]
 	public function saveList(){
         $list=USession::get(self::LIST_SESSION_KEY);
-        $id = self::LIST_SESSION_KEY;
-        //CacheManager::$cache->store(self::CACHE_KEY . $id, $list);
-        $this->showMessage("Sauvegarde", "La liste a été sauvegardée sous l'id $id", "info", "check square");
+        $id = uniqid('', true);
+        CacheManager::$cache->store(self::CACHE_KEY . $id, $list);
+        $this->showMessage("Sauvegarde", "La liste a été sauvegardée sous l'id $id."."Elle sera disponible a l'adresse : http://127.0.0.1:8090/todos/loadList/$id", "info", "check square");
 	}
 
     private function menu(){
