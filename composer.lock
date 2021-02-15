@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a754a5fae99b2702b735ffcb75b19d76",
+    "content-hash": "b88fd38df42aa17df66300f8e61939f0",
     "packages": [
         {
             "name": "frameworks/jquery",
@@ -38,16 +38,16 @@
         },
         {
             "name": "phpmv/php-mv-ui",
-            "version": "2.3.18",
+            "version": "2.3.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/phpMv-UI.git",
-                "reference": "590fc51a17573046314a3e14c73a1ab8ca70584b"
+                "reference": "6d276ac8bd084bb9cfceef97a32fdc436596c268"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/phpMv-UI/zipball/590fc51a17573046314a3e14c73a1ab8ca70584b",
-                "reference": "590fc51a17573046314a3e14c73a1ab8ca70584b",
+                "url": "https://api.github.com/repos/phpMv/phpMv-UI/zipball/6d276ac8bd084bb9cfceef97a32fdc436596c268",
+                "reference": "6d276ac8bd084bb9cfceef97a32fdc436596c268",
                 "shasum": ""
             },
             "require": {
@@ -98,9 +98,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpMv/phpMv-UI/issues",
-                "source": "https://github.com/phpMv/phpMv-UI/tree/2.3.18"
+                "source": "https://github.com/phpMv/phpMv-UI/tree/2.3.19"
             },
-            "time": "2021-02-06T11:14:16+00:00"
+            "time": "2021-02-14T10:32:58+00:00"
         },
         {
             "name": "phpmv/ubiquity",
@@ -764,7 +764,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4"
+        "php": ">=8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

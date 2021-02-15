@@ -1,11 +1,14 @@
 <?php
 namespace controllers;
+use models\Groupe;
+use models\User;
 use Ubiquity\attributes\items\router\Post;
 use Ubiquity\attributes\items\router\Route;
 
  use models\Organization;
  use Ubiquity\orm\DAO;
 use Ubiquity\orm\repositories\ViewRepository;
+use Ubiquity\utils\http\URequest;
 
 /**
  * Controller OrgaController
@@ -18,7 +21,7 @@ class OrgaController extends ControllerBase{
         $this->repo=new ViewRepository($this, Organization::class);
     }
 
-    #[Route(path:'orga', name: 'home')]
+    #[Route('orga')]
 	public function index(){
         $this->repo->all("", false);
         $this->loadView("OrgaController/index.html");
@@ -36,4 +39,31 @@ class OrgaController extends ControllerBase{
         $this->loadView("OrgaController/create.html");
     }
 
+    #Route[()]
+    public function getOrga($name){
+        $orga=DAO::getOne(Organization::class, "name= ?", parameters: [$name]);
+    }
+
+    public function insert(){
+        $groupe = new Groupe();
+        URequest::setValuesToObject($groupe);
+        $idOrga=URequest::post("idOrga");
+        $orga=DAO::getById(Organization::class, $idOrga);
+        $groupe->setOrganization($orga);
+        DAO::insert($orga);
+    }
+
+    public function update(){
+        $groupe = DAO::getById(Groupe::class, URequest::post('idGroupe'));
+        URequest::setValuesToObject($groupe);
+        $idOrga=URequest::post("idOrga");
+        $orga=DAO::getById(Organization::class, $idOrga);
+        $groupe->setOrganization($orga);
+        $idUsers=explode('.', URequest::post('idUsers'));
+        $users = DAO::getAllByIds(User::class, $idUsers);
+        foreach ($users as $user){
+            $groupe->addUser($user);
+        }
+        DAO::update($orga, true);
+    }
 }
