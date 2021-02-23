@@ -52,4 +52,13 @@ class UIGroups extends \Ajax\php\ubiquity\UIService {
         $frm->fieldAsLabeledInput('lastname',['rules'=>'empty']);
         $this->addFormBehavior($formName,$frm,'#new-user','new.userPost');
     }
+
+    public function newUsers($formName){
+        $frm=$this->semantic->dataForm($formName,new User());
+        $frm->addClass('inline');
+        $frm->setFields(['names']);
+        $frm->fieldAsLabeledInput('names',['rules'=>'empty']);
+        $frm->setCaptions(['Entrez chaque utilisateur sur une ligne    John DOE']);
+        $this->addFormBehavior($formName,$frm,'#new-users','new.usersPost');
+    }
 }

@@ -12,6 +12,7 @@ namespace controllers;
  use Ubiquity\controllers\auth\AuthController;
  use Ubiquity\controllers\auth\WithAuthTrait;
  use Ubiquity\orm\DAO;
+ use Ubiquity\utils\http\URequest;
  use Ubiquity\utils\http\USession;
 
  /**
@@ -65,8 +66,10 @@ private UIGroups $uiServices;
     #[Get('new/user', name: 'new.user')]
     public function newUser(){
         $this->uiServices->newUser('frm-user');
-        $this->jquery->renderView('main/vForm.html');
+        $this->jquery->renderView('main/vForm.html',['formName'=>'frm-user']);
     }
+
+
 
     #[Post('new/user', name: 'new.userPost')]
     public function newUserPost(){
@@ -83,6 +86,12 @@ private UIGroups $uiServices;
         }else{
             $this->showMessage("Ajout d'utilisateur","Aucun utilisateur n'a été ajouté",'error','warning circle');
         }
+    }
+
+    #[Get('new/users', name: 'new.users')]
+    public function newUsers(){
+        $this->uiServices->newUsers('frm-users');
+        $this->jquery->renderView('main/vForm.html',['formName'=>'frm-users']);
     }
 
     public function setRepo(OrgaRepository $repo): void
