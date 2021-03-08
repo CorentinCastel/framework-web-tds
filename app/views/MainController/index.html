@@ -1,0 +1,60 @@
+<div class="ui two column grid">
+    <div class="column">
+        <div class="ui attached segment">
+            Store
+        </div>
+        <div class="ui attached blue segment">
+            <div class="ui divided list">
+                <div class="item">
+                    <a href="{{ path('new.user') }}" class="ui secondary button" data-target="#new-user">
+                        Mes commandes
+                    </a>
+                    <div id="new-user" style="margin-top: 3px"></div>
+                </div>
+                <div class="item">
+                    <a href="{{ path('new.users') }}" class="ui secondary button" data-target="#new-users">
+                        Parcourir le store
+                    </a>
+                    <div id="new-users" style="margin-top: 3px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="ui attached segment">
+            Panier
+        </div>
+        <div class="ui attached green segment">
+            <div class="ui divided list">
+                <div class="item">
+                    <a href="{{ path('new.group') }}" class="ui green button" data-target="#new-user">
+                        Nouveau...
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="{{ path('new.group') }}" class="ui secondary button" data-target="#new-user">
+                        Mes paniers
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="ui attached segment">
+        Promotions en cours
+    </div>
+    <div class="ui attached green segment">
+
+    </div>
+</div>
+<div>
+    <div class="ui attached segment">
+        Consultés récemment
+    </div>
+    <div class="ui attached green segment">
+
+    </div>
+</div>
+
+{{ script_foot | raw }}
