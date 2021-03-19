@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 
+ use models\Basket;
  use models\Order;
  use models\Product;
  use Ubiquity\attributes\items\router\Route;
@@ -19,8 +20,9 @@ class MainController extends ControllerBase{
     #[Route('_default', name:'home')]
     public function index(){
         $nbCommande = DAO::count(Order::class, 'idUser=?', [USession::get("idUser")]);
-
-        $this->jquery->renderView('MainController/index.html', ['nbCommandes'=>$nbCommande]);
+        $products = DAO::getAll(Product::class, 'promotion<0');
+        $nbPaniers = DAO::count(Basket::class, 'idUser=?', [USession::get("idUser")]);
+        $this->jquery->renderView('MainController/index.html', ['nbCommandes'=>$nbCommande, 'nbPaniers'=>$nbPaniers, 'products'=>$products]);
     }
 
 

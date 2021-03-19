@@ -33,7 +33,7 @@
                 </div>
                 <div class="item">
                     <a href="{{ path('new.group') }}" class="ui secondary button" data-target="#new-user">
-                        Mes paniers
+                        Mes paniers ({{ nbPaniers }})
                     </a>
                 </div>
             </div>
@@ -45,7 +45,18 @@
         Promotions en cours
     </div>
     <div class="ui attached green segment">
-
+        <div class="ui grid">
+            {% for prod in products%}
+                <div class="ui two wide column">
+                    <div class="item">
+                        {{ prod.name }}
+                    </div>
+                    <div class="item">
+                        {{ prod.price }}€
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 <div>
