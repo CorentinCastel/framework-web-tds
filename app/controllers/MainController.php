@@ -1,6 +1,8 @@
 <?php
 namespace controllers;
 
+ use Ubiquity\controllers\auth\AuthController;
+
  /**
  * Controller MainController
  **/
@@ -10,5 +12,11 @@ class MainController extends ControllerBase{
     public function index(){
         $this->jquery->renderView('MainController/index.html');
     }
+
+    protected function getAuthController(): AuthController{
+        return new MyAuth($this);
+    }
+
+
 
 }

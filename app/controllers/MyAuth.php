@@ -7,10 +7,18 @@ use Ubiquity\utils\http\USession;
 use Ubiquity\utils\http\URequest;
 use Ubiquity\attributes\items\router\Route;
 
-#[Route(path: "/login",name: "login", inherited: true,automated: true)]
+#[Route(path: "/login",inherited: true,automated: true)]
 class MyAuth extends \Ubiquity\controllers\auth\AuthController{
 
-	protected function onConnect($connected) {
+    public function initializeAuth()
+    {
+        if(!URequest::isAjax()){
+            $this->loadView('@activeTheme/main/vHeader.html');
+        }
+    }
+
+
+    protected function onConnect($connected) {
 		$urlParts=$this->getOriginalURL();
 		USession::set($this->_getUserSessionKey(), $connected);
 		if(isset($urlParts)){
@@ -47,7 +55,7 @@ class MyAuth extends \Ubiquity\controllers\auth\AuthController{
 	}
 
 	public function _getBaseRoute() {
-		return '/MyAuth';
+		return 'login';
 	}
 	
 
