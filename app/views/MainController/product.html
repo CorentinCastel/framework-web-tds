@@ -11,10 +11,24 @@
     </div>
     <div class="twelve wide column">
         <div class="ui attached segment column">
-            {{ product.name }}
+            {{ sectionName.name }}
         </div>
         <div class="ui attached green segment">
+            <div>
+                <div class="ui grid">
+                    <div class="eight wide column">
+                        <img src="/public/assets/img/{{ product.image }}.jpg" style="height: 100%; width: 100%;">
+                    </div>
+                    <div class="eight wide column">
+                        <strong>
+                            {{ product.name }}
+                        </strong>
+                        <div class="ui grid">
 
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

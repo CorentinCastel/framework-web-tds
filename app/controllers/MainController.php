@@ -50,9 +50,10 @@ class MainController extends ControllerBase{
 
     #[Route('product/{section_id}/{product_id}', name: 'product')]
     public function product($section_id, $product_id){
-        $product = DAO::getAll(Product::class, 'id='.$product_id);
+        $product = DAO::getOne(Product::class, 'id='.$product_id);
         $sections = DAO::getAll(Section::class);
-        $this->jquery->renderView('mainController/product.html', ['sections'=>$sections, 'product'=>$product]);
+        $nomSect = DAO::getOne(Section::class, 'id='.$section_id);
+        $this->jquery->renderView('mainController/product.html', ['sections'=>$sections, 'product'=>$product, 'sectionName'=>$nomSect]);
     }
 
 }
