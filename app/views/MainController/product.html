@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="ui grid">
+    <div class="four wide column">
+        <div class="ui inverted attached segment">
+            Sections
+        </div>
+        <div class="ui attached inverted vertical menu">
+            {% for section in sections%}
+                <a class="item" href="{{ path("section", {section_id:section.id}) }}">{{ section.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="twelve wide column">
+        <div class="ui attached segment column">
+            {{ product.name }}
+        </div>
+        <div class="ui attached green segment">
+
+        </div>
+    </div>
+</div>
