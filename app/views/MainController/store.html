@@ -3,7 +3,7 @@
         <div class="ui inverted attached segment">
             Sections
         </div>
-        <div class="ui attached inverted vertical menu">
+        <div class="ui bottom attached inverted vertical menu">
             {% for section in sections%}
                 <a class="item" href="{{ path("section", {section_id:section.id}) }}">{{ section.name }}</a>
             {% endfor %}

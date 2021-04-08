@@ -17,18 +17,35 @@
             <div>
                 <div class="ui grid">
                     <div class="eight wide column">
-                        <img src="/public/assets/img/{{ product.image }}.jpg" style="height: 100%; width: 100%;">
+                        <img src="/public/assets/img/{{ product.image }}.jpg" style="height: 75%; width: 75%;">
+                        <br>
+                        {{ product.comments }}
                     </div>
                     <div class="eight wide column">
                         <strong>
                             {{ product.name }}
                         </strong>
                         <div class="ui grid">
-
+                            <div class="five wide column">{{ product.price }}€</div>
+                            <div class="five wide column">
+                                <div class="ui vertical animated button" tabindex="0">
+                                    <div class="hidden content">Add</div>
+                                    <div class="visible content">
+                                        <i class="shop icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="ui right menu">
+                            <a class="ui secondary button">test</a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="ui segment">
+
         </div>
     </div>
 </div>
